@@ -164,17 +164,46 @@ Investigate mocking frameworks for your preferred language.
 Choose at least two frameworks, and answer the questions.
 (One could be Mockito, which we saw in class.) 
 
-Jeg har valgt at sammenligne Mockito og JMockit.
+Mockito VS. EasyMock
 
-• What are their similarities? 
+Similaraties:
+
+Both EasyMock and Mockito are open-source, java-based frameworks. Both are typically used along with other test, like JUnit or TestNG
+Both follow Record-Replay-Verify patterns.
+
+Differences:
+Mockito supports both mocking and spies, whereas EasyMock does not support spies.
+
+In Mockito, we use
+Mockito.when(mock.method(args)).thenReturn(value)
+method for mocking a method calls.
+
+In EasyMock we use
+EasyMock.expect(mock.method(args)).andReturn(Value)
+method for mocking a method call.
+
+In Mockito, the Mockito.verify(mock).method(args) is used for verifying calls to a mock.
+
+In EasyMock, the EasyMock.verify(mock) is used for verifying calls to a mock, but this method is always used after calling the EasyMock.replay(mock) method.
+
+In Mockito, throwing exception can be mocked using
+.thenThrow(ExceptionClass.class)
+after calling the Mockito.when(mock.method(args)) method.
+
+In EasyMock, throwing exception can be mocked using
+.andThrow(new ExceptionClass())
+after calling the EasyMock.expect(..) method.
 
 
+Which one would you prefer, if any, and why?: Mockito would be my choice. It seems to me that there are a lot more calls in EasyMock than in Mockito. Everytime you call a methos in EasyMock, you have to run the following:
 
-• What are their differences? 
+EasyMock.replay(someService);
+SomeClass.someMethod(null);
+EasyMock.verify(someService);
 
 
-
-• Which one would you prefer, if any, and why? 
+In Mockito you only have to use:
+SomeClass.someMethod(null); Mockito.verifyZeroInteractions(someService);
 
 
 
